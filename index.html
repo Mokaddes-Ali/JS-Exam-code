@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Code</title>
+</head>
+<body>
+<script>
+//----QUESTION- 01:Write a JavaScript program to find the largest element in a nested array.
+
+//=================ANSWER TO THE QUESTION NUMBER 01=============================
+
+
+function findLargestInNestedArray(arr) {
+    let largest = Number.NEGATIVE_INFINITY;
+
+    // Iterate through the array
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+            // If the current element is an array, recursively call the function
+            const nestedLargest = findLargestInNestedArray(arr[i]);
+            largest = Math.max(largest, nestedLargest);
+        } else {
+            // If the current element is not an array, update the largest if needed
+            largest = Math.max(largest, arr[i]);
+        }
+    }
+
+    return largest;
+}
+
+// Example usage:
+const nestedArray = [1, [2, 3], [4, [5, 6]]];
+const largestElement = findLargestInNestedArray(nestedArray);
+console.log("The largest element in the nested array is:", largestElement);
+
+//----QUESTION- 02: Write a function that takes an array of objects and a key, and returns a new array sorted based on the values of that key in ascending order. 
+
+//=================ANSWER TO THE QUESTION NUMBER 02=============================
+
+function sortByKey(arr, key) {
+    return arr.slice().sort((a, b) => a[key] - b[key]);
+}
+
+// Example usage:
+const arrayOfObjects = [
+    { name: 'John', age: 30 },
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 35 }
+];
+
+const sortedArray = sortByKey(arrayOfObjects, 'age');
+console.log("Sorted array based on age:", sortedArray);
+
+
+//----QUESTION- 03:Write a recursive function to calculate the factorial of a given number. 
+
+//=================ANSWER TO THE QUESTION NUMBER 03=============================
+
+function factorial(n) {
+    // Base case: factorial of 0 is 1
+    if (n === 0) {
+        return 1;
+    }
+    // Recursive case: factorial of n is n * factorial of (n - 1)
+    else {
+        return n * factorial(n - 1);
+    }
+}
+
+// Example usage:
+const number = 5;
+const result = factorial(number);
+console.log(`Factorial of ${number} is:`, result);
+
+
+//----QUESTION- 04:.Create a JavaScript function that returns the Fibonacci sequence up to a given number, utilizing memoization for optimized performance.
+
+//=================ANSWER TO THE QUESTION NUMBER 04=============================
+
+function fibonacciMemo(n, memo = {}) {
+    if (n in memo) {
+        return memo[n];
+    }
+    if (n <= 1) {
+        return n;
+    }
+    memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
+    return memo[n];
+}
+
+function generateFibonacciSequence(limit) {
+    const sequence = [];
+    for (let i = 0; fibonacciMemo(i) <= limit; i++) {
+        sequence.push(fibonacciMemo(i));
+    }
+    return sequence;
+}
+
+// Example usage:
+const limit = 50;
+const fibonacciSequence = generateFibonacciSequence(limit);
+console.log("Fibonacci sequence up to", limit, ":", fibonacciSequence);
+
+//----QUESTION- 05:.Write a function that takes an array of integers and returns the largest difference between any two numbers in the array.
+
+//=================ANSWER TO THE QUESTION NUMBER 05=============================
+
+function largestDifference(arr) {
+    if (arr.length < 2) {
+        return 0; // If array has less than 2 elements, there's no difference
+    }
+
+    let min = arr[0];
+    let maxDiff = 0;
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < min) {
+            min = arr[i]; // Update minimum value if smaller element found
+        } else {
+            let diff = arr[i] - min; // Calculate difference between current element and minimum
+            if (diff > maxDiff) {
+                maxDiff = diff; // Update maximum difference if larger difference found
+            }
+        }
+    }
+
+    return maxDiff;
+}
+
+// Example usage:
+const numbers = [7, 2, 8, 9, 4, 1];
+console.log(largestDifference(numbers)); // Output: 8 (9 - 1)
+
+</script>
+</body>
+</html>
